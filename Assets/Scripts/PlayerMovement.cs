@@ -3,9 +3,6 @@
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 12f;
-    public float jumpHeight = 3f;
-
     [SerializeField] float gravity = -9.81f;
 
     [SerializeField] LayerMask groundMask = 0;
@@ -27,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        Weapon _weapon = GetComponent<WeaponManager>().GetWeapon();
+
         // Check if grounded
         groundCheck = transform.position;
         groundCheck += new Vector3(0f, controller.radius, 0f);
@@ -49,13 +48,13 @@ public class PlayerMovement : MonoBehaviour
         move = Vector3.Normalize(move) * magnitude;
 
         // Move
-        controller.Move(move * moveSpeed * Time.deltaTime);
+        controller.Move(move * _weapon.playerMoveSpeed * Time.deltaTime);
 
         // Jump if on ground
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             controller.slopeLimit = 100.0f;
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            velocity.y = Mathf.Sqrt(_weapon.playerJumpHeight * -2f * gravity);
         }
 
         // Do gravity stuff

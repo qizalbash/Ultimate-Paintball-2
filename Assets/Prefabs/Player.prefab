@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 677191863840127344}
   - component: {fileID: 677191863840127359}
   - component: {fileID: 677191863840127358}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 677191864029045837}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 677191864467420851}
   - component: {fileID: 677191864467420853}
   - component: {fileID: 677191864467420852}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,11 +218,12 @@ GameObject:
   - component: {fileID: 677191864613117160}
   - component: {fileID: 677191864613117163}
   - component: {fileID: 677191864613117162}
+  - component: {fileID: 114701831191965520}
+  - component: {fileID: 3744571511320859747}
+  - component: {fileID: 1995487513127198787}
   - component: {fileID: 1944808379362171705}
   - component: {fileID: 2370572683299019396}
-  - component: {fileID: 1995487513127198787}
-  - component: {fileID: 3744571511320859747}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -275,8 +276,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d47283d1d1970df45b934f7c2df33d36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 12
-  jumpHeight: 1
   gravity: -9.81
   groundMask:
     serializedVersion: 2
@@ -299,6 +298,53 @@ MonoBehaviour:
   - {fileID: 3744571511320859747}
   gameObjectsToDisable:
   - {fileID: 677191863840127356}
+--- !u!114 &114701831191965520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677191864613117175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ab59f07e391cfc43bb75cff29371adc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon:
+    weaponName: Alpha Auto Rifle
+    weaponType: 1
+    weaponRPM: 180
+    bulletSpeed: 30
+    bulletRadius: 0.125
+    playerMoveSpeed: 12
+    playerJumpHeight: 1
+--- !u!114 &3744571511320859747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677191864613117175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0de1791efeb4ab389d18aaab80943f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 6525456482239631288, guid: 9335c4703ec624147966177d26c528a5,
+    type: 3}
+  firePoint: {fileID: 325377145126111452}
+--- !u!114 &1995487513127198787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677191864613117175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae80c8010fefc424dbfa68325df26a29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1944808379362171705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,7 +391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 4
-  m_SendInterval: 0.1
+  m_SendInterval: 0.033333335
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
@@ -354,37 +400,6 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
---- !u!114 &1995487513127198787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 677191864613117175}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae80c8010fefc424dbfa68325df26a29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3744571511320859747
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 677191864613117175}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b0de1791efeb4ab389d18aaab80943f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weapon:
-    weaponName: Gun
-    bulletSpeed: 0
-    bulletRadius: 0.5
-  bulletPrefab: {fileID: 6525456482239631288, guid: 9335c4703ec624147966177d26c528a5,
-    type: 3}
-  firePoint: {fileID: 325377145126111452}
 --- !u!1 &1419136663091632021
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,7 +409,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 325377145126111452}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

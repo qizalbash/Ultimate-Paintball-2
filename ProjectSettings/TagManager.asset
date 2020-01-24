@@ -15,9 +15,9 @@ TagManager:
   - 
   - PostProcessing
   - Ground
-  - Player
-  - 
-  - 
+  - Bullet
+  - LocalPlayer
+  - RemotePlayer
   - 
   - 
   - 
