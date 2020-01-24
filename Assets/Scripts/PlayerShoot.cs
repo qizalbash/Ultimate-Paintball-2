@@ -18,11 +18,19 @@ public class PlayerShoot : NetworkBehaviour
     // Fires the weapon and tells the server
     // LocalPlayers gets player authority
     [Command]
-    void CmdShoot(Vector3 _firePoint, Quaternion _fireRotation, float _bulletSpeed, float _bulletRadius, GameObject _owner)
+    void CmdShoot(Vector3 _firePoint, Quaternion _fireRotation, float _bulletSpeedMax, float _bulletSpeedMin, float _bulletRadius, float _weaponInaccuracy, int _bulletCount, GameObject _owner)
     {
-        GameObject _bullet = Instantiate(bulletPrefab, _firePoint, _fireRotation);
-        NetworkServer.SpawnWithClientAuthority(_bullet, _owner);
-        _bullet.GetComponent<Bullet>().RpcApplyBulletSettings(_bulletSpeed, _bulletRadius);
+        for (int i = 0; i < _bulletCount; i++)
+        {
+            float _hInaccuracy = Random.Range(-_weaponInaccuracy, _weaponInaccuracy);
+            float _vInaccuracy = Random.Range(-_weaponInaccuracy, _weaponInaccuracy);
+            _fireRotation = Quaternion.Euler(_fireRotation.eulerAngles + Vector3.up * _hInaccuracy + Vector3.right * _vInaccuracy);
+
+            GameObject _bullet = Instantiate(bulletPrefab, _firePoint, _fireRotation);
+            NetworkServer.SpawnWithClientAuthority(_bullet, _owner);
+            float _bulletSpeed = Random.Range(_bulletSpeedMin, _bulletSpeedMax);
+            _bullet.GetComponent<Bullet>().RpcApplyBulletSettings(_bulletSpeed, _bulletRadius);
+        }
     }
 
     // Checks to see if the player is pressing the mouse button, what weapon type they are using, and what their cooldown is
@@ -51,8 +59,8 @@ public class PlayerShoot : NetworkBehaviour
     // Tells the server to fire the weapon
     void Shoot(Weapon _weapon)
     {
-        CmdShoot(firePoint.position, firePoint.rotation, _weapon.bulletSpeed, _weapon.bulletRadius, gameObject);
-        fireCooldown = Util.RPMToCooldown(_weapon.weaponRPM);
+        CmdShoot(firePoint.position, firePoint.rotation, _weapon.bulletSpeedMax, _weapon.bulletSpeedMin, _weapon.bulletRadius, _weapon.weaponInaccuracy, _weapon.bulletCount, gameObject);
+        fireCooldown = Util.RPMToCooldown(_weapon.weaponFireRate);
     }
 
     

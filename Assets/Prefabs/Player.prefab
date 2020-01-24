@@ -313,9 +313,12 @@ MonoBehaviour:
   weapon:
     weaponName: Alpha Auto Rifle
     weaponType: 1
-    weaponRPM: 180
-    bulletSpeed: 30
+    weaponFireRate: 90
+    weaponInaccuracy: 5
+    bulletSpeedMax: 20
+    bulletSpeedMin: 15
     bulletRadius: 0.125
+    bulletCount: 5
     playerMoveSpeed: 12
     playerJumpHeight: 1
 --- !u!114 &3744571511320859747

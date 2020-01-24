@@ -7,11 +7,15 @@ public class Weapon
     public string weaponName;
     public enum WeaponType {Semi, Auto};
     public WeaponType weaponType;
-    public float weaponRPM;
+    [Tooltip("Rounds per minute for normal weapons, bursts per minute for burst weapons.")]
+    public float weaponFireRate;
+    public float weaponInaccuracy;
 
     [Header("Bullet Settings")]
-    public float bulletSpeed;
+    public float bulletSpeedMax;
+    public float bulletSpeedMin;
     public float bulletRadius;
+    public int bulletCount;
 
     [Header("Player Settings")]
     public float playerMoveSpeed;
