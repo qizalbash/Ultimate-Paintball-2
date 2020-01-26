@@ -21,17 +21,17 @@ public class Bullet : NetworkBehaviour
 
     // Applies bullet settings to all players
     [ClientRpc]
-    public void RpcApplyBulletSettings(float _speed, float _radius)
+    public void RpcApplyBulletSettings(float speed, float radius)
     {
         // Set radius
-        GetComponent<SphereCollider>().radius = _radius;
+        GetComponent<SphereCollider>().radius = radius;
 
         // Set radius visually
-        float scale = _radius * 2;
+        float scale = radius * 2;
         bulletGraphics.transform.localScale = new Vector3(scale, scale, scale);
 
         // Launch projectile
-        GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * _speed, ForceMode.Impulse);
+        GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * speed, ForceMode.Impulse);
     }
 
     // Tells the server to destroy the projectile on all objects

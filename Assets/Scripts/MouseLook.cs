@@ -12,13 +12,13 @@ public class MouseLook : MonoBehaviour
     {
         if (Cursor.lockState != CursorLockMode.Locked) { return; }
 
-        float _mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float _mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-        xRotation -= _mouseY;
+        xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        playerBody.Rotate(Vector3.up * _mouseX);
+        playerBody.Rotate(Vector3.up * mouseX);
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
     }
 }

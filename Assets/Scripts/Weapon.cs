@@ -4,20 +4,24 @@
 public class Weapon
 {
     [Header("Weapon Settings")]
-    public string weaponName;
-    public enum WeaponType {Semi, Auto};
-    public WeaponType weaponType;
+    public string Name;
+    public enum WeaponType
+    {
+        Auto,
+        Semi
+    }
+    public WeaponType Type;
     [Tooltip("Rounds per minute for normal weapons, bursts per minute for burst weapons.")]
-    public float weaponFireRate;
-    public float weaponInaccuracy;
+    public float FireRate;
+    public float Inaccuracy;
 
     [Header("Bullet Settings")]
-    public float bulletSpeedMax;
-    public float bulletSpeedMin;
-    public float bulletRadius;
-    public int bulletCount;
+    public float SpeedMax;
+    public float SpeedMin;
+    public float Radius;
+    public int Count;
 
     [Header("Player Settings")]
-    public float playerMoveSpeed;
-    public float playerJumpHeight;
+    public float MoveSpeed;
+    public float JumpHeight;
 }

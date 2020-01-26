@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        Weapon _weapon = GetComponent<WeaponManager>().GetWeapon();
+        Weapon weapon = GetComponent<WeaponManager>().GetWeapon();
 
         // Check if grounded
         groundCheck = transform.position;
@@ -39,22 +39,22 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Get movement inputs
-        float _x = Input.GetAxis("Horizontal");
-        float _z = Input.GetAxis("Vertical");
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
 
         // Normalize movements
-        Vector3 move = transform.right * _x + transform.forward * _z;
+        Vector3 move = transform.right * x + transform.forward * z;
         float magnitude = Mathf.Clamp01(move.magnitude);
         move = Vector3.Normalize(move) * magnitude;
 
         // Move
-        controller.Move(move * _weapon.playerMoveSpeed * Time.deltaTime);
+        controller.Move(move * weapon.MoveSpeed * Time.deltaTime);
 
         // Jump if on ground
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             controller.slopeLimit = 100.0f;
-            velocity.y = Mathf.Sqrt(_weapon.playerJumpHeight * -2f * gravity);
+            velocity.y = Mathf.Sqrt(weapon.JumpHeight * -2f * gravity);
         }
 
         // Do gravity stuff
@@ -64,8 +64,6 @@ public class PlayerMovement : MonoBehaviour
 
         // If player hits their head then reset gravity
         if ((controller.collisionFlags & CollisionFlags.Above) != 0)
-        {
             velocity.y = -9.81f;
-        }
     }
 }
