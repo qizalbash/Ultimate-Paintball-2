@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
         float z = Input.GetAxis("Vertical");
 
         // Normalize movements
-        Vector3 move = transform.right * x + transform.forward * z;
+        Vector3 move = (transform.right * x) + (transform.forward * z);
         float magnitude = Mathf.Clamp01(move.magnitude);
         move = Vector3.Normalize(move) * magnitude;
 

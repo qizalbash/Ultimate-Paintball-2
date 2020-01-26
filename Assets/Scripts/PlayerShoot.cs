@@ -24,7 +24,7 @@ public class PlayerShoot : NetworkBehaviour
         {
             float hInaccuracy = Random.Range(-weaponInaccuracy, weaponInaccuracy);
             float vInaccuracy = Random.Range(-weaponInaccuracy, weaponInaccuracy);
-            fireRotation = Quaternion.Euler(fireRotation.eulerAngles + Vector3.up * hInaccuracy + Vector3.right * vInaccuracy);
+            fireRotation = Quaternion.Euler(fireRotation.eulerAngles + (Vector3.up * hInaccuracy) + Vector3.right * vInaccuracy);
 
             GameObject bullet = Instantiate(bulletPrefab, firePoint, fireRotation);
             NetworkServer.SpawnWithClientAuthority(bullet, owner);
