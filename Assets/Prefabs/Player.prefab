@@ -310,17 +310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ab59f07e391cfc43bb75cff29371adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon:
-    weaponName: Alpha Auto Rifle
-    weaponType: 1
-    weaponFireRate: 90
-    weaponInaccuracy: 5
-    bulletSpeedMax: 20
-    bulletSpeedMin: 15
-    bulletRadius: 0.125
-    bulletCount: 5
-    playerMoveSpeed: 12
-    playerJumpHeight: 1
+  weapon: {fileID: 11400000, guid: 67ca626f68a984fb9ac1913b654157ba, type: 2}
 --- !u!114 &3744571511320859747
 MonoBehaviour:
   m_ObjectHideFlags: 0

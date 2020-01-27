@@ -1,23 +1,21 @@
 ﻿using UnityEngine;
 
-[System.Serializable]
-public class Weapon
+[CreateAssetMenu(fileName = "New Weapon", menuName = "Weapon")]
+public class Weapon : ScriptableObject
 {
-    [Header("Weapon Settings")]
-    public string Name;
     public enum WeaponType
     {
         Auto,
         Semi
     }
+    [Header("Weapon Settings")]
     public WeaponType Type;
     [Tooltip("Rounds per minute for normal weapons, bursts per minute for burst weapons.")]
     public float FireRate;
     public float Inaccuracy;
 
     [Header("Bullet Settings")]
-    public float SpeedMax;
-    public float SpeedMin;
+    public float Speed;
     public float Radius;
     public int Count;
 

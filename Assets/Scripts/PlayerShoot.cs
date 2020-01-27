@@ -18,7 +18,7 @@ public class PlayerShoot : NetworkBehaviour
     // Fires the weapon and tells the server
     // LocalPlayers gets player authority
     [Command]
-    void CmdShoot(Vector3 firePoint, Quaternion fireRotation, float bulletSpeedMax, float bulletSpeedMin, float bulletRadius, float weaponInaccuracy, int bulletCount, GameObject owner)
+    void CmdShoot(Vector3 firePoint, Quaternion fireRotation, float bulletSpeed, float bulletRadius, float weaponInaccuracy, int bulletCount, GameObject owner)
     {
         for (int i = 0; i < bulletCount; i++)
         {
@@ -28,7 +28,6 @@ public class PlayerShoot : NetworkBehaviour
 
             GameObject bullet = Instantiate(bulletPrefab, firePoint, fireRotation);
             NetworkServer.SpawnWithClientAuthority(bullet, owner);
-            float bulletSpeed = Random.Range(bulletSpeedMin, bulletSpeedMax);
             bullet.GetComponent<Bullet>().RpcApplyBulletSettings(bulletSpeed, bulletRadius);
         }
     }
@@ -41,14 +40,14 @@ public class PlayerShoot : NetworkBehaviour
 
         Weapon weapon = GetComponent<WeaponManager>().GetWeapon();
 
-        if (weapon.Type == Weapon.WeaponType.Semi && (Input.GetButtonDown("Fire1") || (weapon.Type == Weapon.WeaponType.Auto && Input.GetButton("Fire1"))))
+        if (weapon.Type == Weapon.WeaponType.Semi && Input.GetButtonDown("Fire1") || weapon.Type == Weapon.WeaponType.Auto && Input.GetButton("Fire1"))
             Shoot(weapon);
     }
 
     // Tells the server to fire the weapon
     void Shoot(Weapon weapon)
     {
-        CmdShoot(firePoint.position, firePoint.rotation, weapon.SpeedMax, weapon.SpeedMin, weapon.Radius, weapon.Inaccuracy, weapon.Count, gameObject);
+        CmdShoot(firePoint.position, firePoint.rotation, weapon.Speed, weapon.Radius, weapon.Inaccuracy, weapon.Count, gameObject);
         fireCooldown = Util.RPMToCooldown(weapon.FireRate);
     }
 }
