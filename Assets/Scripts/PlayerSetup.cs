@@ -40,14 +40,14 @@ public class PlayerSetup : NetworkBehaviour
     // Disables components and objects that should not be on a remote player
     void DisableComponents()
     {
-        foreach (Behaviour _behaviour in componentsToDisable)
+        foreach (Behaviour behaviour in componentsToDisable)
         {
-            _behaviour.enabled = false;
+            behaviour.enabled = false;
         }
 
-        foreach (GameObject _gameObject in gameObjectsToDisable)
+        foreach (GameObject gameObject in gameObjectsToDisable)
         {
-            _gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 }

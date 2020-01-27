@@ -18,50 +18,37 @@ public class PlayerShoot : NetworkBehaviour
     // Fires the weapon and tells the server
     // LocalPlayers gets player authority
     [Command]
-    void CmdShoot(Vector3 _firePoint, Quaternion _fireRotation, float _bulletSpeedMax, float _bulletSpeedMin, float _bulletRadius, float _weaponInaccuracy, int _bulletCount, GameObject _owner)
+    void CmdShoot(Vector3 firePoint, Quaternion fireRotation, float bulletSpeedMax, float bulletSpeedMin, float bulletRadius, float weaponInaccuracy, int bulletCount, GameObject owner)
     {
-        for (int i = 0; i < _bulletCount; i++)
+        for (int i = 0; i < bulletCount; i++)
         {
-            float _hInaccuracy = Random.Range(-_weaponInaccuracy, _weaponInaccuracy);
-            float _vInaccuracy = Random.Range(-_weaponInaccuracy, _weaponInaccuracy);
-            _fireRotation = Quaternion.Euler(_fireRotation.eulerAngles + Vector3.up * _hInaccuracy + Vector3.right * _vInaccuracy);
+            float hInaccuracy = Random.Range(-weaponInaccuracy, weaponInaccuracy);
+            float vInaccuracy = Random.Range(-weaponInaccuracy, weaponInaccuracy);
+            fireRotation = Quaternion.Euler(fireRotation.eulerAngles + (Vector3.up * hInaccuracy) + (Vector3.right * vInaccuracy));
 
-            GameObject _bullet = Instantiate(bulletPrefab, _firePoint, _fireRotation);
-            NetworkServer.SpawnWithClientAuthority(_bullet, _owner);
-            float _bulletSpeed = Random.Range(_bulletSpeedMin, _bulletSpeedMax);
-            _bullet.GetComponent<Bullet>().RpcApplyBulletSettings(_bulletSpeed, _bulletRadius);
+            GameObject bullet = Instantiate(bulletPrefab, firePoint, fireRotation);
+            NetworkServer.SpawnWithClientAuthority(bullet, owner);
+            float bulletSpeed = Random.Range(bulletSpeedMin, bulletSpeedMax);
+            bullet.GetComponent<Bullet>().RpcApplyBulletSettings(bulletSpeed, bulletRadius);
         }
     }
 
     // Checks to see if the player is pressing the mouse button, what weapon type they are using, and what their cooldown is
     void AttemptShoot()
     {
-        if (fireCooldown > 0f) { return; }
+        if (fireCooldown > 0f)
+            return;
 
-        Weapon _weapon = GetComponent<WeaponManager>().GetWeapon();
+        Weapon weapon = GetComponent<WeaponManager>().GetWeapon();
 
-        if (_weapon.weaponType == Weapon.WeaponType.Semi)
-        {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                Shoot(_weapon);
-            }
-        }
-        else if (_weapon.weaponType == Weapon.WeaponType.Auto)
-        {
-            if (Input.GetButton("Fire1"))
-            {
-                Shoot(_weapon);
-            }
-        }
+        if (weapon.Type == Weapon.WeaponType.Semi && (Input.GetButtonDown("Fire1") || (weapon.Type == Weapon.WeaponType.Auto && Input.GetButton("Fire1"))))
+            Shoot(weapon);
     }
 
     // Tells the server to fire the weapon
-    void Shoot(Weapon _weapon)
+    void Shoot(Weapon weapon)
     {
-        CmdShoot(firePoint.position, firePoint.rotation, _weapon.bulletSpeedMax, _weapon.bulletSpeedMin, _weapon.bulletRadius, _weapon.weaponInaccuracy, _weapon.bulletCount, gameObject);
-        fireCooldown = Util.RPMToCooldown(_weapon.weaponFireRate);
+        CmdShoot(firePoint.position, firePoint.rotation, weapon.SpeedMax, weapon.SpeedMin, weapon.Radius, weapon.Inaccuracy, weapon.Count, gameObject);
+        fireCooldown = Util.RPMToCooldown(weapon.FireRate);
     }
-
-    
 }

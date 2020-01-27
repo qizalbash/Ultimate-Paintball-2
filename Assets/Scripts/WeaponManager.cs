@@ -4,15 +4,12 @@ public class WeaponManager : MonoBehaviour
 {
     [SerializeField] Weapon weapon;
 
-    public Weapon GetWeapon()
-    {
-        return weapon;
-    }
+    public Weapon GetWeapon() => weapon;
 
-    public void EquipWeapon(Weapon _weapon)
+    public void EquipWeapon(Weapon weapon)
     {
-        weapon = _weapon;
+        this.weapon = weapon;
 
-        // Here is where you can set weapon graphics in the future
+        // TODO: set weapon graphics
     }
 }
