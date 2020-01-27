@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
-public class Bullet : MonoBehaviour
+public class BulletScript : NetworkBehaviour
 {
     public float speed = 10.0f;
 
@@ -17,15 +18,11 @@ public class Bullet : MonoBehaviour
     }
 
     void OnCollisionEnter(Collision collision){
-        if(collision.gameObject.tag == "terrain"){
-            Destroy(gameObject);
-        }
-       
+        Destroy(gameObject);
     }
 
     IEnumerator DeathRoutine(){
         yield return new WaitForSeconds(10.0f);
         Destroy(gameObject);
     }
-    
-    }
+}
