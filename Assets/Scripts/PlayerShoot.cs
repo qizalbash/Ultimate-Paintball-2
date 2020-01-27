@@ -18,7 +18,7 @@ public class PlayerShoot : MonoBehaviour
     void Shoot()
     {
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        bullet.GetComponent<Bullet>().speed = weapon.bulletSpeed;
+        bullet.GetComponent<BulletScript>().speed = weapon.bulletSpeed;
         bullet.GetComponent<SphereCollider>().radius = weapon.bulletRadius;
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.Networking;
 
-public class Bullet : NetworkBehaviour
+public class BulletScript : NetworkBehaviour
 {
     public float speed = 10.0f;
 
