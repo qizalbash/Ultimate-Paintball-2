@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
+using System.Collections;
 
 [RequireComponent(typeof(SphereCollider))]
 [RequireComponent(typeof(Rigidbody))]
@@ -9,13 +10,43 @@ public class Bullet : NetworkBehaviour
 
     [SerializeField] LayerMask layersToIgnore = 0;
 
-    private void Start()
+    private void Update()
     {
-        // Disables this script if not on a client with authority
+        // Don't do anything without authority
         if (!hasAuthority)
-        {
-            enabled = false;
             return;
+
+        if (transform.position.y <= -10f)
+        {
+            CmdDestroyBullet();
+        } 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // Don't do anything without authority
+        if (!hasAuthority)
+            return;
+
+        // Damage remote players
+        // TODO: Make this actually work
+        if (other.gameObject.layer == LayerMask.NameToLayer("RemotePlayer"))
+        {
+            PlayerNetwork playerNetwork = other.GetComponent<PlayerNetwork>();
+            if (playerNetwork == null)
+            {
+                Debug.LogError("Player does not have a PlayerNetwork script!");
+            }
+            else
+            {
+                playerNetwork.RpcTakeDamage(5);
+            }
+        }
+
+        // Calls CmdDestroyBullet() if object hit is not in layersToIgnore
+        if (((1 << other.gameObject.layer) & layersToIgnore) == 0 && hasAuthority)
+        {
+            CmdDestroyBullet();
         }
     }
 
@@ -39,14 +70,5 @@ public class Bullet : NetworkBehaviour
     void CmdDestroyBullet()
     {
         NetworkServer.Destroy(gameObject);
-    }
-    
-    private void OnTriggerEnter(Collider other)
-    {
-        // Calls CmdDestroyBullet() if object hit is not in layersToIgnore
-        if (((1 << other.gameObject.layer) & layersToIgnore) == 0 && hasAuthority) 
-        {
-            CmdDestroyBullet();
-        }
     }
 }
