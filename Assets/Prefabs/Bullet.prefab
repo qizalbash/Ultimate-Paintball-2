@@ -42,9 +42,12 @@ GameObject:
   - component: {fileID: 2083802250179116744}
   - component: {fileID: 763360163169520354}
   - component: {fileID: 8188124479419444267}
+<<<<<<< HEAD
   - component: {fileID: 4271305076471293913}
   - component: {fileID: 2300476705566643700}
   - component: {fileID: 5921873278599073538}
+=======
+>>>>>>> parent of 06f5935... Projectile behavior
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -75,10 +78,10 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6525456482239631288}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.51
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8188124479419444267
 MonoBehaviour:
@@ -92,6 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93a4f189fa5ac4c3c9d59354272d81d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
   speed: 10
 --- !u!54 &4271305076471293913
 Rigidbody:
@@ -164,6 +168,9 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
+=======
+  speed: 0
+>>>>>>> parent of 06f5935... Projectile behavior
 --- !u!1 &6868677881131899388
 GameObject:
   m_ObjectHideFlags: 0

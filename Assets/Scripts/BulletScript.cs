@@ -1,19 +1,17 @@
 ﻿using UnityEngine;
+<<<<<<< HEAD:Assets/Scripts/BulletScript.cs
 using System.Collections;
 using UnityEngine.Networking;
+=======
+>>>>>>> parent of 06f5935... Projectile behavior:Assets/Scripts/Bullet.cs
 
 public class BulletScript : NetworkBehaviour
 {
-    public float speed = 10.0f;
+    public float speed;
 
-
-    void Start(){
-        speed = 20.0f;
-        StartCoroutine(DeathRoutine());
-    }
-
-    void Update()
+    private void Update()
     {
+<<<<<<< HEAD:Assets/Scripts/BulletScript.cs
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
 
@@ -26,3 +24,8 @@ public class BulletScript : NetworkBehaviour
         Destroy(gameObject);
     }
 }
+=======
+        
+    }
+}
+>>>>>>> parent of 06f5935... Projectile behavior:Assets/Scripts/Bullet.cs
