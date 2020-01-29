@@ -3,9 +3,6 @@
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 12f;
-    public float jumpHeight = 3f;
-
     [SerializeField] float gravity = -9.81f;
 
     [SerializeField] LayerMask groundMask = 0;
@@ -27,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        Weapon weapon = GetComponent<WeaponManager>().GetWeapon();
+
         // Check if grounded
         groundCheck = transform.position;
         groundCheck += new Vector3(0f, controller.radius, 0f);
@@ -40,22 +39,22 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Get movement inputs
-        float _x = Input.GetAxis("Horizontal");
-        float _z = Input.GetAxis("Vertical");
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
 
         // Normalize movements
-        Vector3 move = transform.right * _x + transform.forward * _z;
+        Vector3 move = (transform.right * x) + (transform.forward * z);
         float magnitude = Mathf.Clamp01(move.magnitude);
         move = Vector3.Normalize(move) * magnitude;
 
         // Move
-        controller.Move(move * moveSpeed * Time.deltaTime);
+        controller.Move(move * weapon.MoveSpeed * Time.deltaTime);
 
         // Jump if on ground
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             controller.slopeLimit = 100.0f;
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            velocity.y = Mathf.Sqrt(weapon.JumpHeight * -2f * gravity);
         }
 
         // Do gravity stuff
@@ -65,8 +64,6 @@ public class PlayerMovement : MonoBehaviour
 
         // If player hits their head then reset gravity
         if ((controller.collisionFlags & CollisionFlags.Above) != 0)
-        {
             velocity.y = -9.81f;
-        }
     }
 }
